@@ -1,4 +1,4 @@
-# hybrid-python
+# OptiRun
 
 A small Python and C++ runtime that explicitly dispatches handler calls to persistent **CPython 3.14** and **free-threaded CPython 3.14t** worker processes.
 
@@ -27,7 +27,7 @@ HANDLERS = {"echo": echo}
 Dispatch through either worker from one Python process:
 
 ```python
-from hybrid_python import Runtime
+from optirun import Runtime
 
 with Runtime(
     gil_python="/path/to/regular-venv/bin/python",

@@ -1,10 +1,10 @@
-#include "hybrid_python/transport.hpp"
+#include "optirun/transport.hpp"
 #include <bit>
 #include <cstring>
 #include <limits>
 #include <stdexcept>
 
-namespace hybrid_python::detail {
+namespace optirun::detail {
 namespace {
 constexpr std::uint16_t version = 1;
 constexpr std::uint32_t max_body = 16U * 1024U * 1024U;
@@ -117,4 +117,4 @@ Value decode_value(const std::vector<std::byte> &b, std::size_t &o) {
     throw std::runtime_error("unknown value tag");
   }
 }
-} // namespace hybrid_python::detail
+} // namespace optirun::detail

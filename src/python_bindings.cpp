@@ -1,4 +1,4 @@
-#include "hybrid_python/runtime_manager.hpp"
+#include "optirun/runtime_manager.hpp"
 #include <chrono>
 #include <future>
 #include <memory>
@@ -6,7 +6,7 @@
 #include <pybind11/stl.h>
 #include <type_traits>
 namespace py = pybind11;
-using namespace hybrid_python;
+using namespace optirun;
 namespace {
 Value to_value(py::handle object) {
   if (object.is_none())
@@ -91,7 +91,7 @@ public:
       }
       return from_value(value);
     } catch (const RemoteException &error) {
-      py::object exception = py::module_::import("hybrid_python._native")
+      py::object exception = py::module_::import("optirun._native")
                                  .attr("RemoteException")(error.what());
       exception.attr("type_name") = error.error().type_name;
       exception.attr("remote_message") = error.error().message;
@@ -127,7 +127,7 @@ public:
         std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::duration<double>(shutdown_timeout));
     config.worker_script =
-        std::filesystem::path(py::module_::import("hybrid_python._native")
+        std::filesystem::path(py::module_::import("optirun._native")
                                   .attr("__file__")
                                   .cast<std::string>())
             .parent_path() /

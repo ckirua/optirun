@@ -1,5 +1,5 @@
 import sys
-from hybrid_python import RemoteException, Runtime
+from optirun import RemoteException, Runtime
 
 if len(sys.argv) != 4:
     raise SystemExit(2)

@@ -1,4 +1,4 @@
-# Hybrid Python runtime library: implementation plan
+# OptiRun: implementation plan
 
 ## Objective
 
@@ -119,7 +119,7 @@ struct BufferHandle {
 Names below are illustrative and should be refined during implementation.
 
 ```python
-from hybrid_python import Runtime
+from optirun import Runtime
 
 with Runtime(gil_python="...", free_python="...") as runtime:
     with runtime.arena(capacity=256 * 1024 * 1024) as arena:

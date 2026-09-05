@@ -1,9 +1,9 @@
-#include "hybrid_python/runtime_manager.hpp"
+#include "optirun/runtime_manager.hpp"
 #include <chrono>
 #include <functional>
 #include <iostream>
 #include <thread>
-using namespace hybrid_python;
+using namespace optirun;
 using namespace std::chrono_literals;
 void require(bool ok, const char *message) {
   if (!ok)

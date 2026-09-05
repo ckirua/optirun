@@ -1,7 +1,7 @@
 """Run one handler on CPython 3.14 and CPython 3.14t from Python."""
 
 import sys
-from hybrid_python import Runtime
+from optirun import Runtime
 
 if len(sys.argv) != 4:
     raise SystemExit("usage: python_dispatch.py GIL_PYTHON FREE_PYTHON HANDLERS")

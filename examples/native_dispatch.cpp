@@ -1,6 +1,6 @@
-#include "hybrid_python/runtime_manager.hpp"
+#include "optirun/runtime_manager.hpp"
 #include <iostream>
-using namespace hybrid_python;
+using namespace optirun;
 int main(int argc, char **argv) {
   if (argc != 4) {
     std::cerr << "usage: native_dispatch GIL_PYTHON FREE_PYTHON HANDLERS\n";

@@ -42,17 +42,17 @@ The free-threaded worker verifies its build identity and actual GIL state *after
 The worker command is:
 
 ```text
-PYTHON_EXECUTABLE -I -B workers/hybrid_python_worker.py --handler-file HANDLER_FILE
+PYTHON_EXECUTABLE -I -B workers/optirun_worker.py --handler-file HANDLER_FILE
 ```
 
 `-I` ignores ambient `PYTHONPATH` and user-site packages, while `-B` avoids bytecode writes. The worker deliberately does **not** use `-S`, so the configured virtual environment initializes `site` and its normal `site-packages` directory is importable.
 
 ## Python API
 
-Build the binding for the desired caller ABI, then add its generated `python/` directory to `PYTHONPATH`. The `hybrid_python` package exposes `Runtime`, `Backend`, `DispatchFuture`, and `RemoteException`, with typed `__init__.pyi` stubs and `py.typed`.
+Build the binding for the desired caller ABI, then add its generated `python/` directory to `PYTHONPATH`. The `optirun` package exposes `Runtime`, `Backend`, `DispatchFuture`, and `RemoteException`, with typed `__init__.pyi` stubs and `py.typed`.
 
 ```python
-from hybrid_python import Runtime
+from optirun import Runtime
 
 with Runtime("/path/to/python3.14", "/path/to/python3.14t", "handlers.py") as runtime:
     runtime.register_handler("transform", ["gil", "free_threaded"])
@@ -70,11 +70,11 @@ The repository is a PEP 517 package built by `scikit-build-core`; it does not us
 ```bash
 # Regular CPython caller wheel and installation
 /usr/bin/python3.14 -m build --wheel --outdir dist
-/usr/bin/python3.14 -m pip install dist/hybrid_python-*-cp314-*.whl
+/usr/bin/python3.14 -m pip install dist/optirun-*-cp314-*.whl
 
 # Free-threaded caller wheel and installation
 /path/to/python3.14t -m pip wheel . --no-deps --wheel-dir dist
-/path/to/python3.14t -m pip install dist/hybrid_python-*-cp314t-*.whl
+/path/to/python3.14t -m pip install dist/optirun-*-cp314t-*.whl
 ```
 
 The wheels bundle `_native`, the typed package files, and `worker.py`. At runtime, `Runtime` resolves `worker.py` beside the installed extension; it does not depend on the source checkout. The wheel intentionally does not bundle either worker interpreter or their handler dependencies.

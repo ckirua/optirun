@@ -1,5 +1,5 @@
-#include "hybrid_python/runtime_manager.hpp"
-#include "hybrid_python/transport.hpp"
+#include "optirun/runtime_manager.hpp"
+#include "optirun/transport.hpp"
 #include <algorithm>
 #include <array>
 #include <cerrno>
@@ -18,7 +18,7 @@
 #include <unistd.h>
 extern char **environ;
 
-namespace hybrid_python {
+namespace optirun {
 namespace {
 using detail::Frame;
 using detail::MessageType;
@@ -247,7 +247,7 @@ class Runtime::Impl {
     std::string executable = config.executable.string(),
                 script = std::filesystem::absolute(
                              config_.worker_script.empty()
-                                 ? std::filesystem::path(HYBRID_WORKER_SCRIPT)
+                                 ? std::filesystem::path(OPTIRUN_WORKER_SCRIPT)
                                  : config_.worker_script)
                              .string(),
                 handler =
@@ -468,4 +468,4 @@ WorkerInfo Runtime::worker_info(Backend backend) const {
   return impl_->info(backend);
 }
 void Runtime::shutdown() { impl_->shutdown(); }
-} // namespace hybrid_python
+} // namespace optirun

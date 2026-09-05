@@ -14,7 +14,7 @@ Run the comparison with no interpreter arguments:
 python examples/picosmh/benchmark.py
 ```
 
-The script validates and launches **both** local CPython 3.14 and CPython 3.14t interpreters in one invocation. It checks the caller interpreter first, then `python3.14` / `python3.14t` on `PATH`, `~/.local/bin`, and `/usr/bin`. Set `HYBRID_PYTHON_GIL_EXECUTABLE` and `HYBRID_PYTHON_FREE_THREADED_EXECUTABLE`, or pass `--gil-python` and `--free-python`, only to override selection.
+The script validates and launches **both** local CPython 3.14 and CPython 3.14t interpreters in one invocation. It checks the caller interpreter first, then `python3.14` / `python3.14t` on `PATH`, `~/.local/bin`, and `/usr/bin`. Set `OPTIRUN_GIL_EXECUTABLE` and `OPTIRUN_FREE_THREADED_EXECUTABLE`, or pass `--gil-python` and `--free-python`, only to override selection.
 
 The default uses PicoSMH's `pure` backend so the comparison runs from the sibling source checkout. Use the pure-Python implementation when validating orchestration without building both PicoSMH extension ABIs:
 
@@ -24,4 +24,4 @@ python examples/picosmh/benchmark.py --backend pure
 
 Use `--backend pybind11` only after installing PicoSMH's matching native package into both worker environments. The script intentionally does not claim that one runtime is universally faster; it prints measurements for the selected host, worker packages, payload size, and workload.
 
-The comparison measures a sequential publish/consume cycle in each worker. It validates that both worker processes import and execute the same PicoSMH handler, but it is not a cross-worker shared-memory transport benchmark; hybrid-python's shared-buffer transport is a future milestone.
+The comparison measures a sequential publish/consume cycle in each worker. It validates that both worker processes import and execute the same PicoSMH handler, but it is not a cross-worker shared-memory transport benchmark; OptiRun's shared-buffer transport is a future milestone.

@@ -6,7 +6,7 @@ HELLO, INVOKE, RESULT, ERROR, SHUTDOWN, SHUTDOWN_ACK = range(1, 7)
 
 
 def fail(message):
-    print(f"hybrid_python worker: {message}", file=sys.stderr, flush=True)
+    print(f"optirun worker: {message}", file=sys.stderr, flush=True)
     raise SystemExit(2)
 
 
@@ -106,7 +106,7 @@ def decode_value(data, offset):
 
 
 def load_handlers(path):
-    spec = importlib.util.spec_from_file_location("hybrid_python_handlers", path)
+    spec = importlib.util.spec_from_file_location("optirun_handlers", path)
     if spec is None or spec.loader is None:
         fail("cannot load handler module")
     module = importlib.util.module_from_spec(spec)

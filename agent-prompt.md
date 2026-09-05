@@ -1,6 +1,6 @@
 Agent handoff prompt
 
-You are implementing a C++ library, provisionally called `hybrid_python`, that lets C++ and Python callers dispatch handlers to either persistent CPython 3.14 workers or persistent free-threaded CPython 3.14t workers. Read the accompanying `plan.md` before making changes. The plan describes a proposed project; do not assume any of its code already exists.
+You are implementing a C++ library called `optirun` that lets C++ and Python callers dispatch handlers to either persistent CPython 3.14 workers or persistent free-threaded CPython 3.14t workers. Read the accompanying `plan.md` before making changes. The plan describes a proposed project; do not assume any of its code already exists.
 
 ## User intent
 

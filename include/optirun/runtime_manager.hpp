@@ -13,8 +13,7 @@
 #include <variant>
 #include <vector>
 
-namespace hybrid_python {
-
+namespace optirun {
 enum class Backend { gil, free_threaded };
 using Value = std::variant<std::monostate, bool, std::int64_t, double,
                            std::string, std::vector<std::byte>>;
@@ -73,4 +72,4 @@ private:
   class Impl;
   std::unique_ptr<Impl> impl_;
 };
-} // namespace hybrid_python
+} // namespace optirun

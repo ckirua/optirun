@@ -13,7 +13,7 @@ import sys
 import time
 from pathlib import Path
 
-from hybrid_python import Runtime
+from optirun import Runtime
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_PICOSMH = ROOT.parents[1].parent / "picosmh" / "python"
@@ -148,11 +148,11 @@ def main() -> int:
         )
     try:
         gil_python = resolve_interpreter(
-            args.gil_python, "HYBRID_PYTHON_GIL_EXECUTABLE", "python3.14", False
+            args.gil_python, "OPTIRUN_GIL_EXECUTABLE", "python3.14", False
         )
         free_python = resolve_interpreter(
             args.free_python,
-            "HYBRID_PYTHON_FREE_THREADED_EXECUTABLE",
+            "OPTIRUN_FREE_THREADED_EXECUTABLE",
             "python3.14t",
             True,
         )

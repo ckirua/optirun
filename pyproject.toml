@@ -3,7 +3,7 @@ requires = ["scikit-build-core>=0.10", "pybind11>=3.0"]
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "hybrid-python"
+name = "optirun"
 version = "0.1.0"
 description = "Persistent regular and free-threaded CPython worker dispatch"
 readme = "README.md"
@@ -17,5 +17,5 @@ classifiers = [
 
 [tool.scikit-build]
 minimum-version = "build-system.requires"
-wheel.packages = ["python/hybrid_python"]
+wheel.packages = ["python/optirun"]
 cmake.build-type = "Release"

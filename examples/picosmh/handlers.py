@@ -1,4 +1,4 @@
-"""PicoSMH workloads run inside each hybrid-python worker."""
+"""PicoSMH workloads run inside each OptiRun worker."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def ring_roundtrip(iterations: int, payload_bytes: int) -> str:
     """Publish then consume scalar-sized messages through one PicoSMH ring."""
     if iterations <= 0 or payload_bytes < 0:
         raise ValueError("iterations must be positive and payload_bytes non-negative")
-    name = f"hybrid_python_picosmh_{os.getpid()}_{uuid.uuid4().hex}"
+    name = f"optirun_picosmh_{os.getpid()}_{uuid.uuid4().hex}"
     Ring.unlink(name)
     ring = Ring(
         name,
