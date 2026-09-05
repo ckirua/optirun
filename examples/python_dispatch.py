@@ -1,4 +1,5 @@
 """Run one handler on CPython 3.14 and CPython 3.14t from Python."""
+
 import sys
 from hybrid_python import Runtime
 

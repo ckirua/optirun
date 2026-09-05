@@ -16,7 +16,8 @@
 namespace hybrid_python {
 
 enum class Backend { gil, free_threaded };
-using Value = std::variant<std::monostate, bool, std::int64_t, double, std::string, std::vector<std::byte>>;
+using Value = std::variant<std::monostate, bool, std::int64_t, double,
+                           std::string, std::vector<std::byte>>;
 
 struct WorkerInfo {
   Backend backend;
@@ -27,14 +28,23 @@ struct WorkerInfo {
   bool build_supports_free_threading{};
   bool gil_enabled{};
 };
-struct RemoteError { std::string type_name; std::string message; std::string traceback; };
-class RemoteException final : public std::runtime_error {
- public:
-  explicit RemoteException(RemoteError error);
-  [[nodiscard]] const RemoteError& error() const noexcept;
- private: RemoteError error_;
+struct RemoteError {
+  std::string type_name;
+  std::string message;
+  std::string traceback;
 };
-struct WorkerConfig { std::filesystem::path executable; std::filesystem::path handler_file; };
+class RemoteException final : public std::runtime_error {
+public:
+  explicit RemoteException(RemoteError error);
+  [[nodiscard]] const RemoteError &error() const noexcept;
+
+private:
+  RemoteError error_;
+};
+struct WorkerConfig {
+  std::filesystem::path executable;
+  std::filesystem::path handler_file;
+};
 struct RuntimeConfig {
   WorkerConfig gil;
   WorkerConfig free_threaded;
@@ -44,17 +54,23 @@ struct RuntimeConfig {
   std::filesystem::path worker_script;
 };
 class Runtime {
- public:
+public:
   explicit Runtime(RuntimeConfig config);
   ~Runtime() noexcept;
-  Runtime(const Runtime&) = delete; Runtime& operator=(const Runtime&) = delete;
-  Runtime(Runtime&&) noexcept; Runtime& operator=(Runtime&&) noexcept;
+  Runtime(const Runtime &) = delete;
+  Runtime &operator=(const Runtime &) = delete;
+  Runtime(Runtime &&) noexcept;
+  Runtime &operator=(Runtime &&) noexcept;
   void register_handler(std::string name, std::vector<Backend> backends);
   void start();
-  [[nodiscard]] std::future<Value> submit(Backend backend, std::string_view handler, std::vector<Value> arguments);
+  [[nodiscard]] std::future<Value> submit(Backend backend,
+                                          std::string_view handler,
+                                          std::vector<Value> arguments);
   [[nodiscard]] WorkerInfo worker_info(Backend backend) const;
   void shutdown();
- private:
-  class Impl; std::unique_ptr<Impl> impl_;
+
+private:
+  class Impl;
+  std::unique_ptr<Impl> impl_;
 };
-}  // namespace hybrid_python
+} // namespace hybrid_python
