@@ -6,6 +6,7 @@ build-backend = "scikit_build_core.build"
 name = "hybrid-python"
 version = "0.1.0"
 description = "Persistent regular and free-threaded CPython worker dispatch"
+readme = "README.md"
 requires-python = ">=3.14"
 license = { text = "MIT" }
 classifiers = [
