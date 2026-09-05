@@ -1,0 +1,18 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "linux-gcc14",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-gcc14",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++-14",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "HYBRID_PYTHON_GIL_EXECUTABLE": "/usr/bin/python3.14",
+        "HYBRID_PYTHON_FREE_THREADED_EXECUTABLE": "/home/dev/.local/share/uv/python/cpython-3.14.3+freethreaded-linux-x86_64-gnu/bin/python3.14t"
+      }
+    }
+  ],
+  "buildPresets": [{"name": "linux-gcc14", "configurePreset": "linux-gcc14"}],
+  "testPresets": [{"name": "linux-gcc14", "configurePreset": "linux-gcc14", "output": {"outputOnFailure": true}}]
+}
