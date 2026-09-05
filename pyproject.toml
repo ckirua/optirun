@@ -1,0 +1,20 @@
+[build-system]
+requires = ["scikit-build-core>=0.10", "pybind11>=3.0"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "hybrid-python"
+version = "0.1.0"
+description = "Persistent regular and free-threaded CPython worker dispatch"
+requires-python = ">=3.14"
+license = { text = "MIT" }
+classifiers = [
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Typing :: Typed",
+]
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+wheel.packages = ["python/hybrid_python"]
+cmake.build-type = "Release"

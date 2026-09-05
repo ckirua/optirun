@@ -41,6 +41,7 @@ struct RuntimeConfig {
   std::size_t max_pending{64};
   std::chrono::milliseconds handshake_timeout{5000};
   std::chrono::milliseconds shutdown_timeout{5000};
+  std::filesystem::path worker_script;
 };
 class Runtime {
  public:

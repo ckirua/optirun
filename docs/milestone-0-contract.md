@@ -63,6 +63,22 @@ with Runtime("/path/to/python3.14", "/path/to/python3.14t", "handlers.py") as ru
 
 Registration must precede `start()` or the first `submit()`. `DispatchFuture.result()` releases the caller GIL while waiting and returns only supported transport values. A remote handler error raises `RemoteException` with `type_name`, `remote_message`, and `traceback`.
 
+### Installation
+
+The repository is a PEP 517 package built by `scikit-build-core`; it does not use `setup.py`. Build one wheel per caller ABI, then install it with the same interpreter:
+
+```bash
+# Regular CPython caller wheel and installation
+/usr/bin/python3.14 -m build --wheel --outdir dist
+/usr/bin/python3.14 -m pip install dist/hybrid_python-*-cp314-*.whl
+
+# Free-threaded caller wheel and installation
+/path/to/python3.14t -m pip wheel . --no-deps --wheel-dir dist
+/path/to/python3.14t -m pip install dist/hybrid_python-*-cp314t-*.whl
+```
+
+The wheels bundle `_native`, the typed package files, and `worker.py`. At runtime, `Runtime` resolves `worker.py` beside the installed extension; it does not depend on the source checkout. The wheel intentionally does not bundle either worker interpreter or their handler dependencies.
+
 ### Current transport limit
 
 Imports are independent of transport support. The baseline only transports `null`, booleans, signed 64-bit integers, binary64 floats, UTF-8 strings, and bytes. NumPy arrays, extension-owned objects, and arbitrary Python objects cannot cross the process boundary yet. Encode supported values yourself or wait for the shared-buffer milestone.
