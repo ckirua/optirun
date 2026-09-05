@@ -13,6 +13,16 @@ endif()
 set(Python_FIND_STRATEGY LOCATION)
 find_package(Python 3.14 EXACT COMPONENTS Interpreter Development.Module REQUIRED)
 find_package(Threads REQUIRED)
+execute_process(
+  COMMAND "${Python_EXECUTABLE}" -m pybind11 --cmakedir
+  OUTPUT_VARIABLE HYBRID_PYBIND11_CMAKE_DIR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  RESULT_VARIABLE HYBRID_PYBIND11_CMAKE_RESULT
+)
+if(NOT HYBRID_PYBIND11_CMAKE_RESULT EQUAL 0)
+  message(FATAL_ERROR "pybind11 must be installed in the binding interpreter")
+endif()
+list(PREPEND CMAKE_PREFIX_PATH "${HYBRID_PYBIND11_CMAKE_DIR}")
 find_package(pybind11 CONFIG REQUIRED)
 
 add_library(hybrid_python STATIC src/runtime_manager.cpp src/wire_codec.cpp src/pipe_transport.cpp)

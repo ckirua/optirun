@@ -1,0 +1,5 @@
+# Required before `pip install -e . --no-build-isolation`.
+scikit-build-core>=0.10
+pybind11>=3.0
+cmake>=4.0
+ninja>=1.11

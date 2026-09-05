@@ -79,6 +79,19 @@ The repository is a PEP 517 package built by `scikit-build-core`; it does not us
 
 The wheels bundle `_native`, the typed package files, and `worker.py`. At runtime, `Runtime` resolves `worker.py` beside the installed extension; it does not depend on the source checkout. The wheel intentionally does not bundle either worker interpreter or their handler dependencies.
 
+For an editable install, default build isolation installs these build dependencies automatically:
+
+```bash
+python -m pip install -e .
+```
+
+If using `--no-build-isolation`, pip intentionally does not install the build backend. Install the repository's build requirements into that exact virtual environment first:
+
+```bash
+python -m pip install -r requirements-build.txt
+python -m pip install -e . --no-build-isolation
+```
+
 ### Current transport limit
 
 Imports are independent of transport support. The baseline only transports `null`, booleans, signed 64-bit integers, binary64 floats, UTF-8 strings, and bytes. NumPy arrays, extension-owned objects, and arbitrary Python objects cannot cross the process boundary yet. Encode supported values yourself or wait for the shared-buffer milestone.
