@@ -73,7 +73,7 @@ cmake --build --preset linux-gcc14
 ctest --preset linux-gcc14 --output-on-failure
 ```
 
-Run the native and Python examples in [`examples/`](examples/). The detailed protocol, lifecycle, packaging, and environment contract is in [`docs/milestone-0-contract.md`](docs/milestone-0-contract.md).
+Run the native and Python examples in [`examples/`](examples/), including the [`PicoSMH dual-runtime comparison`](examples/picosmh/) that benchmarks the same shared-memory-ring workload on both worker builds. The detailed protocol, lifecycle, packaging, and environment contract is in [`docs/milestone-0-contract.md`](docs/milestone-0-contract.md).
 
 ## License
 
