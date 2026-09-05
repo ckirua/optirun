@@ -37,17 +37,31 @@ Pure-Python packages can be installed in both environments. Compiled extensions 
 
 The free-threaded worker verifies its build identity and actual GIL state *after* loading the handler module. An extension that enables the GIL causes free-threaded startup to fail rather than silently accepting a fallback. Extension import failures also fail startup before the worker becomes available.
 
-### Current virtual-environment limitation
+### Virtual-environment imports
 
-The worker command is currently:
+The worker command is:
 
 ```text
-PYTHON_EXECUTABLE -I -B -S workers/hybrid_python_worker.py --handler-file HANDLER_FILE
+PYTHON_EXECUTABLE -I -B workers/hybrid_python_worker.py --handler-file HANDLER_FILE
 ```
 
-`-I` intentionally ignores ambient `PYTHONPATH` and user-site packages, and `-B` avoids writing bytecode. `-S` also suppresses `site` initialization, which means a normal virtual environment's `site-packages` is not automatically available. Therefore venv-installed packages and extensions are **not reliably importable in the baseline** despite configuring the venv executable.
+`-I` ignores ambient `PYTHONPATH` and user-site packages, while `-B` avoids bytecode writes. The worker deliberately does **not** use `-S`, so the configured virtual environment initializes `site` and its normal `site-packages` directory is importable.
 
-The intended correction is to remove `-S` while retaining `-I -B`; then the configured venv's standard `site-packages` is used without accepting ambient import paths. This has not yet been implemented.
+## Python API
+
+Build the binding for the desired caller ABI, then add its generated `python/` directory to `PYTHONPATH`. The `hybrid_python` package exposes `Runtime`, `Backend`, `DispatchFuture`, and `RemoteException`, with typed `__init__.pyi` stubs and `py.typed`.
+
+```python
+from hybrid_python import Runtime
+
+with Runtime("/path/to/python3.14", "/path/to/python3.14t", "handlers.py") as runtime:
+    runtime.register_handler("transform", ["gil", "free_threaded"])
+    regular = runtime.submit("transform", [1, 2], backend="gil")
+    free = runtime.submit("transform", [1, 2], backend="free_threaded")
+    print(regular.result(), free.result())
+```
+
+Registration must precede `start()` or the first `submit()`. `DispatchFuture.result()` releases the caller GIL while waiting and returns only supported transport values. A remote handler error raises `RemoteException` with `type_name`, `remote_message`, and `traceback`.
 
 ### Current transport limit
 

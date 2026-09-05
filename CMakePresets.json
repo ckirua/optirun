@@ -1,18 +1,9 @@
 {
   "version": 6,
   "configurePresets": [
-    {
-      "name": "linux-gcc14",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/linux-gcc14",
-      "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++-14",
-        "CMAKE_BUILD_TYPE": "Debug",
-        "HYBRID_PYTHON_GIL_EXECUTABLE": "/usr/bin/python3.14",
-        "HYBRID_PYTHON_FREE_THREADED_EXECUTABLE": "/home/dev/.local/share/uv/python/cpython-3.14.3+freethreaded-linux-x86_64-gnu/bin/python3.14t"
-      }
-    }
+    {"name":"linux-gcc14","generator":"Ninja","binaryDir":"${sourceDir}/build/linux-gcc14","cacheVariables":{"CMAKE_CXX_COMPILER":"/usr/bin/g++-14","CMAKE_BUILD_TYPE":"Debug","HYBRID_PYTHON_GIL_EXECUTABLE":"/usr/bin/python3.14","HYBRID_PYTHON_FREE_THREADED_EXECUTABLE":"/home/dev/.local/share/uv/python/cpython-3.14.3+freethreaded-linux-x86_64-gnu/bin/python3.14t","HYBRID_PYTHON_BINDING_EXECUTABLE":"/usr/bin/python3.14","HYBRID_PYBIND11_DIR":"/usr/local/lib/python3.14/dist-packages/pybind11/share/cmake/pybind11"}},
+    {"name":"linux-gcc14-free-threaded-binding","inherits":"linux-gcc14","binaryDir":"${sourceDir}/build/linux-gcc14-free-threaded-binding","cacheVariables":{"HYBRID_PYTHON_BINDING_EXECUTABLE":"/home/dev/.local/share/uv/python/cpython-3.14.3+freethreaded-linux-x86_64-gnu/bin/python3.14t"}}
   ],
-  "buildPresets": [{"name": "linux-gcc14", "configurePreset": "linux-gcc14"}],
-  "testPresets": [{"name": "linux-gcc14", "configurePreset": "linux-gcc14", "output": {"outputOnFailure": true}}]
+  "buildPresets":[{"name":"linux-gcc14","configurePreset":"linux-gcc14"},{"name":"linux-gcc14-free-threaded-binding","configurePreset":"linux-gcc14-free-threaded-binding"}],
+  "testPresets":[{"name":"linux-gcc14","configurePreset":"linux-gcc14","output":{"outputOnFailure":true}}]
 }
