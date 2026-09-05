@@ -73,7 +73,7 @@ cmake --build --preset linux-gcc14
 ctest --preset linux-gcc14 --output-on-failure
 ```
 
-Run the native and Python examples in [`examples/`](examples/), including the [`PicoSMH dual-runtime comparison`](examples/picosmh/) that benchmarks the same shared-memory-ring workload on both worker builds. The implementation roadmap is in [`plan.md`](plan.md).
+Run the native and Python examples in [`examples/`](examples/). The implementation roadmap is in [`plan.md`](plan.md).
 
 ## License
 
